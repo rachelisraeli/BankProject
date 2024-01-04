@@ -1,4 +1,4 @@
-﻿namespace Bank
+﻿namespace Bank.Entities
 {
     public class Client
     {
@@ -7,5 +7,7 @@
         public string Name { get; set; }
 
         public string Phone { get; set; }
+
+        public List<Turn> Turns { get; set; }
     }
 }

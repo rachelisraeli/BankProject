@@ -1,4 +1,4 @@
-﻿namespace Bank
+﻿namespace Bank.Entities
 {
     public class Turn
     {
@@ -8,8 +8,16 @@
 
         //public TimeOnly Hour { get; set; }
 
+        public int BankerId { get; set; }
+
+
+        //Foreign Key
         public int ClientId { get; set; }
 
-        public int BankerId { get; set; }
+
+        //Reference Navigation Property
+        public Client Client { get; set; }
+
+
     }
 }

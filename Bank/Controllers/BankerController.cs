@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Bank.Entities;
+using Microsoft.AspNetCore.Mvc;
+using Solid.Core;
+using Solid.Core.Services;
+using Solid.Service;
 using System.Collections.Generic;
 
 namespace Bank.Controllers
@@ -9,47 +13,60 @@ namespace Bank.Controllers
     {
         static int index = 0;
 
-        private static List<Banker> bankers = new List<Banker>
+        private readonly IBankerService _bankerService;
+
+        public BankerController(IBankerService bankerService)
         {
-            new Banker { Id = ++index, Name = "Avi" },
-            new Banker { Id = ++index, Name = "Baruch" }
-        };
+            _bankerService = bankerService;
+        }
 
         // GET: api/<BankayController>
         [HttpGet]
-        public IEnumerable<Banker> Get()
+        public ActionResult Get()
         {
-            return bankers;
+            return Ok(_bankerService.GetBankers());
         }
 
         // GET api/<BankayController>/5
         [HttpGet("id/{id}")]
-        public Banker Get(int id)
+        public ActionResult Get(int id)
         {
-            var banker = bankers.FirstOrDefault(b => b.Id == id);
-            return banker;
+            //var banker = _context.Bankers.FirstOrDefault(b => b.Id == id);
+            var banker = _bankerService.GetById(id);
+            if (banker is null)
+            {
+                return NotFound();
+            }
+            return Ok(banker);
         }
 
         [HttpGet("name/{name}")]
-        public Banker GetByName(string name)
+        public ActionResult GetByName(string name)
         {
-            var banker = bankers.FirstOrDefault(b => b.Name == name);
-            return banker;
+            //var banker = _context.Bankers.FirstOrDefault(b => b.Name == name);
+            var banker = _bankerService.GetByName(name);
+            if (banker is null)
+            {
+                return NotFound();
+            }
+            return Ok(banker);
         }
 
         // POST api/<BankayController>
         [HttpPost]
         public void Post([FromBody] Banker b)
         {
-            //index++;
-            bankers.Add(new Banker { Id = ++index, Name = b.Name });
+            index++;
+            _bankerService.Post(b);
+            //_context.Bankers.Add(new Banker { Id = ++index, Name = b.Name });
         }
 
         // PUT api/<BankayController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Banker b)
         {
-            var banker = bankers.FirstOrDefault(b => b.Id == id);
+            //var banker = _context.Bankers.FirstOrDefault(b => b.Id == id);
+            var banker = _bankerService.Put(id, b);
             banker.Name = b.Name;
         }
 
@@ -57,12 +74,13 @@ namespace Bank.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var banker = bankers.FirstOrDefault(b => b.Id == id);
-            bankers.Remove(banker);
-            for (int i = bankers.FindIndex(b => b.Id == id) + 1; i < bankers.Count; i++)
-            {
-                bankers[i].Id--;
-            }
+            //var banker = _context.Bankers.FirstOrDefault(b => b.Id == id);
+            //_context.Bankers.Remove(banker);
+            //for (int i = _context.Bankers.FindIndex(b => b.Id == id) + 1; i < _context.Bankers.Count; i++)
+            //{
+            //    _context.Bankers[i].Id--;
+            //}
+            _bankerService.Delete(id);
             index--;
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace Bank
+﻿namespace Bank.Entities
 {
     public class Banker
     {

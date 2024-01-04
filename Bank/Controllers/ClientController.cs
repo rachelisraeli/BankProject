@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Bank.Entities;
+using Microsoft.AspNetCore.Mvc;
+using Solid.Core;
+using Solid.Core.Services;
+using Solid.Service;
+using System.Reflection;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,34 +13,45 @@ namespace Bank.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
-        private static List<Client> clients = new List<Client>
+        private readonly IClientService _clientService;
+
+        public ClientController(IClientService clientService)
         {
-            new Client { Id = 1, Name = "Aharon", Phone="0504172639" },
-            new Client { Id = 2, Name = "Bluma", Phone="0527154148"}
-        };
+            _clientService = clientService;
+        }
 
         static int index = 2;
 
         // GET: api/<ClientController>
         [HttpGet]
-        public IEnumerable<Client> Get()
+        public ActionResult Get()
         {
-            return clients;
+            return Ok(_clientService.GetClients());
         }
 
         // GET api/<ClientController>/5
         [HttpGet("id/{id}")]
-        public Client Get(int id)
+        public ActionResult Get(int id)
         {
-            var client = clients.FirstOrDefault(c => c.Id == id);
-            return client;
+            //var client = _context.Clients.FirstOrDefault(c => c.Id == id);
+            var client = _clientService.GetById(id);
+            if (client is null)
+            {
+                return NotFound();
+            }
+            return Ok(client);
         }
 
         [HttpGet("name/{name}")]
-        public Client GetByName(string name)
+        public ActionResult GetByName(string name)
         {
-            var client = clients.FirstOrDefault(c => c.Name == name);
-            return client;
+            //var client = _context.Clients.FirstOrDefault(c => c.Name == name);
+            var client = _clientService.GetByName(name);
+            if (client is null)
+            {
+                return NotFound();
+            }
+            return Ok(client);
         }
 
         // POST api/<ClientController>
@@ -43,14 +59,16 @@ namespace Bank.Controllers
         public void Post([FromBody] Client c)
         {
             index++;
-            clients.Add(new Client { Id = index, Name = c.Name, Phone = c.Phone });
+            _clientService.Post(c);
+            //_context.Clients.Add(new Client { Id = index, Name = c.Name, Phone = c.Phone });
         }
 
         // PUT api/<ClientController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Client c)
         {
-            var client = clients.FirstOrDefault(b => b.Id == id);
+            var client = _clientService.Put(id, c);
+            //var client = _context.Clients.FirstOrDefault(b => b.Id == id);
             client.Name = c.Name;
             client.Phone = c.Phone;
         }
@@ -59,12 +77,14 @@ namespace Bank.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var client = clients.FirstOrDefault(c => c.Id == id);
-            clients.Remove(client);
-            for (int i = clients.FindIndex(b => b.Id == id) + 1; i < clients.Count; i++)
-            {
-                clients[i].Id--;
-            }
+
+            //var client = _context.Clients.FirstOrDefault(c => c.Id == id);
+            //_context.Clients.Remove(client);
+            //for (int i = _context.Clients.FindIndex(b => b.Id == id) + 1; i < _context.Clients.Count; i++)
+            //{
+            //    _context.Clients[i].Id--;
+            //}
+            _clientService.Delete(id);
             index--;
         }
     }
