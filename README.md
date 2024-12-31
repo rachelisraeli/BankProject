@@ -1,7 +1,7 @@
 # BankProject
 
 ## Introduction
-BankProject is a project developed in C# using the .NET framework.
+BankProject is a backend application developed in C# using the .NET framework.
 The project is designed to manage banking operations, including functionalities such as account management, transaction tracking, and more.
 The project adheres to the SOLID design principles to ensure it is maintainable and scalable.
 
@@ -30,20 +30,26 @@ To set up the project locally, follow these steps:
   ```cd BankProject```
 
 3. Open the project in your preferred IDE (e.g., Visual Studio).
+4. Restore the dependencies:
+   ```
+   dotnet restore
+   ```
+
+5. Build the project:
+  ```
+  dotnet build
+  ```
 
 ## Usage
 
 To run the project:
 
-1. Build the project using your IDE.
-2. Start the application.
-3. Follow the on-screen instructions to interact with the banking system.
-   
-## Contributing
-If you are interested in contributing to this project, please fork the repository and create a pull request with your changes.
+1. Start the application:
+  ```
+  dotnet run
+  ```
+2. The application will be hosted on `http://localhost:5000` by default.
 
-## License
-This project is licensed under the MIT License.
 
 ## Contact
 For any inquiries or issues, please contact rachelisraeli.
