@@ -36,20 +36,20 @@ To set up the project locally, follow these steps:
    ```
 
 5. Build the project:
-  ```
-  dotnet build
-  ```
+    ```
+    dotnet build
+    ```
 
 ## Usage
 
 To run the project:
 
 1. Start the application:
-  ```
-  dotnet run
-  ```
+    ```
+    dotnet run
+    ```
 2. The application will be hosted on `http://localhost:5000` by default.
 
 
 ## Contact
-For any inquiries or issues, please contact rachelisraeli.
+For any inquiries or issues, please contact @rachelisraeli.
