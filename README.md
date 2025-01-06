@@ -25,7 +25,7 @@ To set up the project locally, follow these steps:
 
 1. Clone the repository:
    
-  ```git clone https://github.com/rachelisraeli/BankProject.git```
+      ```git clone https://github.com/rachelisraeli/BankProject.git```
 
 2. Open the project in your preferred IDE (e.g., Visual Studio).
    
@@ -44,10 +44,10 @@ To set up the project locally, follow these steps:
 5. To run the project:
 
    - Start the application:
-   
-    ```
-    dotnet run
-    ```
+     
+     ```
+      dotnet run
+     ```
     
    - The application will be hosted on `http://localhost:5000` by default.
 
