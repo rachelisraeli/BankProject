@@ -24,32 +24,32 @@ The project follows the SOLID design principles:
 To set up the project locally, follow these steps:
 
 1. Clone the repository:
+   
   ```git clone https://github.com/rachelisraeli/BankProject.git```
 
-2. Navigate to the project directory:
-  ```cd BankProject```
-
-3. Open the project in your preferred IDE (e.g., Visual Studio).
-4. Restore the dependencies:
+2. Open the project in your preferred IDE (e.g., Visual Studio).
+   
+3. Restore the dependencies:
+   
    ```
    dotnet restore
    ```
 
-5. Build the project:
+4. Build the project:
+   
     ```
     dotnet build
     ```
 
-## Usage
+5. To run the project:
 
-To run the project:
-
-1. Start the application:
+   - Start the application:
    
     ```
     dotnet run
     ```
-3. The application will be hosted on `http://localhost:5000` by default.
+    
+   - The application will be hosted on `http://localhost:5000` by default.
 
 
 ## Contact
